@@ -173,7 +173,7 @@ class TestAccountService(TestCase):
     def test_list_all_accounts(self):
         """It should Get a list of Accounts"""
         # Create Accounts to list
-        account = self._create_accounts(5)
+        self._create_accounts(5)
 
         # List the accounts
         response = self.client.get(
