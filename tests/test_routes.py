@@ -169,3 +169,25 @@ class TestAccountService(TestCase):
             content_type="application/json"
         )
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+    def test_list_all_accounts(self):
+        """It should Get a list of Accounts"""
+        # Create Accounts to list
+        account = self._create_accounts(5)
+
+        # List the accounts
+        response = self.client.get(
+            BASE_URL,
+            content_type="application/json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        data = response.get_json()
+        self.assertEqual(len(data), 5)
+
+    def test_method_not_allowed(self):
+        """It should not allow an illegal method call"""
+        response = self.client.delete(
+            BASE_URL,
+            content_type="application/json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
